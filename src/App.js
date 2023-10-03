@@ -1,50 +1,57 @@
 
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import React, { Component } from 'react'
-
-export default class App extends Component {
+class App extends React.Component {
   state = {
-    Person: {
-      fullName: "Adel",
-      bio: "I'm a software engineer.",
-      imgSrc: "./images/image.jpg",
-      profession: "Software Engineer"
-    },
-    shows: false,
-    timeSinceMount: 0
-  }
+    fullName: "Hamroun Adel",
+    profession: "Engineer",
+    bio: "Developer Full Stack javaScript",
+    image: "./images/image.jpg",
+    show: true,
+    cnt: 0,
+  };
+
+  handleClick = () => {
+    this.setState({ show: !this.state.show });
+  };
   componentDidMount() {
-    this.interval = setInterval(() => {
-      this.setState({ timeSinceMount: this.state.timeSinceMount + 1 });
+    setInterval(() => {
+      this.setState((prevState) => ({
+        cnt: prevState.cnt + 1,
+      }));
     },1000);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-  toggleShows = () => {
-    this.setState({ shows: !this.state.shows });
-  }
-
   render() {
-    const { fullName, bio, imgSrc, profession } = this.state.Person;
-    const { shows, timeSinceMount } = this.state;
-
     return (
-      <div>
-        <button onClick={this.toggleShows}>Toggle Shows</button>
-        {shows && (
-          <div>
-            <h1>{fullName}</h1>
-            <p>{bio}</p>
-            <img src={imgSrc} alt="Profile" style={{height:'250px',width:'250px'}} />
-            <p>{profession}</p>
-          </div>
-        )}
-        <p>Time since mount: {timeSinceMount} seconds</p>
-      </div>
+      <div className="pos app">
+        <div className="box">
+          {this.state.show && (
+            <div className="inf">
+              <div className="pos profImg">
+                <img src={this.state.image} alt="" />
+              </div>
+              <section className="pos">
+                <h1>{this.state.fullName}</h1>
+                <h3>{this.state.profession}</h3>
+                <p>{this.state.bio}</p>
+                <div className="count">
+                  Count: {this.state.cnt}{" "}
+                  sec
+                </div>
+              </section>
+            </div>
+          )}
+          <button type="button" className="btn" onClick={this.handleClick}>
+            Show Me
+          </button>
+        </div>
+      
+        </div>
+     
     );
   }
 }
+export default App;
 
