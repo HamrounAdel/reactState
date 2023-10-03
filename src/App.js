@@ -1,54 +1,34 @@
 
 import React from "react";
 import "./App.css";
+import Profil from "./composant/Profil";
 
 class App extends React.Component {
-  state = {
-    fullName: "Hamroun Adel",
-    profession: "Engineer",
-    bio: "Developer Full Stack javaScript",
-    image: "./images/image.jpg",
-    show: true,
-    cnt: 0,
-  };
-
+  
+  constructor() {
+    super();
+    this.state = {
+     show:true
+    };
+  }
   handleClick = () => {
     this.setState({ show: !this.state.show });
   };
-  componentDidMount() {
-    setInterval(() => {
-      this.setState((prevState) => ({
-        cnt: prevState.cnt + 1,
-      }));
-    },1000);
-  }
-
+ 
   render() {
     return (
-      <div className="pos app">
-        <div className="box">
-          {this.state.show && (
-            <div className="inf">
-              <div className="pos profImg">
-                <img src={this.state.image} alt="" />
-              </div>
-              <section className="pos">
-                <h1>{this.state.fullName}</h1>
-                <h3>{this.state.profession}</h3>
-                <p>{this.state.bio}</p>
-                <div className="count">
-                  Count: {this.state.cnt}{" "}
-                  sec
-                </div>
-              </section>
-            </div>
-          )}
-          <button type="button" className="btn" onClick={this.handleClick}>
+     <div className="pos app"> 
+    
+     <button type="button" className="btn" onClick={this.handleClick}>
             Show Me
           </button>
+         <div> {this.state.show ? (
+          
+            <Profil show={this.state.show} />
+          
+        ) : null}
         </div>
-      
-        </div>
+     </div>
      
     );
   }
